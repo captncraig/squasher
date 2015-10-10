@@ -10,7 +10,6 @@ import (
 func main() {
 	r := gin.Default()
 
-	// first create the auth handler
 	conf := &ghauth.Conf{
 		ClientId:     os.Getenv("GITHUB_CLIENT_ID"),
 		ClientSecret: os.Getenv("GITHUB_CLIENT_SECRET"),
@@ -19,11 +18,10 @@ func main() {
 		CookieSecret: os.Getenv("COOKIE_SECRET"),
 	}
 	auth := ghauth.New(conf)
-
-	// register oauth routes
 	auth.RegisterRoutes("/login", "/callback", "/logout", r)
 
-	r.GET("/", func(ctx *gin.Context) {
+	open := r.Group("/", auth.OpenHandler())
+	open.GET("/", func(ctx *gin.Context) {
 		u := ghauth.User(ctx)
 		fmt.Println(u)
 		msg := "Not logged in"
