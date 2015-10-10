@@ -11,8 +11,8 @@ func main() {
 
 	// first create the auth handler
 	conf := &ghauth.Conf{
-		ClientId:     os.Getenv("GH_CLIENT_ID"),
-		ClientSecret: os.Getenv("GH_CLIENT_SECRET"),
+		ClientId:     os.Getenv("GITHUB_CLIENT_ID"),
+		ClientSecret: os.Getenv("GITHUB_CLIENT_SECRET"),
 		Scopes:       []string{"user", "repo"},
 		CookieName:   "ghuser",
 		CookieSecret: os.Getenv("COOKIE_SECRET"),
