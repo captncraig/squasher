@@ -7,5 +7,5 @@ func main() {
 	r.GET("/ping", func(c *gin.Context) {
 		c.String(200, "pong")
 	})
-	r.Run(":8080") // listen and serve on 0.0.0.0:8080
+	r.Run(":8765") // listen and serve on 0.0.0.0:8080
 }
