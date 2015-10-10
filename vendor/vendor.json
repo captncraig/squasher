@@ -3,6 +3,11 @@
 	"ignore": "test",
 	"package": [
 		{
+			"path": "github.com/captncraig/ghauth",
+			"revision": "b5c5da1b213661c96f3c40cff536e89559e66e17",
+			"revisionTime": "2015-10-08T23:19:26-06:00"
+		},
+		{
 			"path": "github.com/gin-gonic/gin",
 			"revision": "52fcc5dbf6e94df33ad313858fb94b713e9d1b4a",
 			"revisionTime": "2015-09-25T12:14:45+02:00"
@@ -18,6 +23,16 @@
 			"revisionTime": "2015-09-25T12:14:45+02:00"
 		},
 		{
+			"path": "github.com/google/go-github/github",
+			"revision": "2570a87f54b43ed0957cabd7a0819f0dab85217b",
+			"revisionTime": "2015-09-29T21:50:10-07:00"
+		},
+		{
+			"path": "github.com/google/go-querystring/query",
+			"revision": "547ef5ac979778feb2f760cdb5f4eae1a2207b86",
+			"revisionTime": "2014-11-09T01:42:17Z"
+		},
+		{
 			"path": "github.com/manucorporat/sse",
 			"revision": "fe6ea2c8e398672518ef204bf0fbd9af858d0e15",
 			"revisionTime": "2015-07-15T20:48:05+02:00"
@@ -31,6 +46,21 @@
 			"path": "golang.org/x/net/context",
 			"revision": "b846920a172af75fe52c1400ae6094307be83b8a",
 			"revisionTime": "2015-10-07T22:10:10-07:00"
+		},
+		{
+			"path": "golang.org/x/oauth2",
+			"revision": "2fbf3d7329d847b125188ad64b68cfb1f548938a",
+			"revisionTime": "2015-09-29T18:24:17-06:00"
+		},
+		{
+			"path": "golang.org/x/oauth2/github",
+			"revision": "2fbf3d7329d847b125188ad64b68cfb1f548938a",
+			"revisionTime": "2015-09-29T18:24:17-06:00"
+		},
+		{
+			"path": "golang.org/x/oauth2/internal",
+			"revision": "2fbf3d7329d847b125188ad64b68cfb1f548938a",
+			"revisionTime": "2015-09-29T18:24:17-06:00"
 		},
 		{
 			"path": "gopkg.in/bluesuncorp/validator.v5",
