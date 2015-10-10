@@ -24,7 +24,11 @@ func main() {
 
 	r.GET("/", func(ctx *gin.Context) {
 		u := ghauth.User(ctx)
-		ctx.String(200, "hello "+u.Login)
+		msg := "Not logged in"
+		if u != nil {
+			msg = "hello " + u.Login
+		}
+		ctx.String(200, msg)
 	})
 	r.Run(":8765")
 }
