@@ -2,13 +2,27 @@ package main
 
 import (
 	"fmt"
-	"github.com/captncraig/ghauth"
-	"github.com/gin-gonic/gin"
+	"log"
 	"os"
+
+	"github.com/captncraig/ghauth"
+	"github.com/captncraig/temple"
+	"github.com/gin-gonic/gin"
 )
+
+//go:generate govendor add +external
+//go:generate templeGen -pkg=main -var=myTemplates -o=templates.go -dir=templates
+
+var templateManager temple.TemplateStore
 
 func main() {
 	r := gin.Default()
+
+	var err error
+	templateManager, err = temple.New(gin.IsDebugging(), myTemplates, "templates")
+	if err != nil {
+		log.Fatal(err)
+	}
 
 	conf := &ghauth.Conf{
 		ClientId:     os.Getenv("GITHUB_CLIENT_ID"),
