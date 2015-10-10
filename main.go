@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"os"
 
@@ -37,12 +36,9 @@ func main() {
 	open := r.Group("/", auth.OpenHandler())
 	open.GET("/", func(ctx *gin.Context) {
 		u := ghauth.User(ctx)
-		fmt.Println(u)
-		msg := "Not logged in"
-		if u != nil {
-			msg = "hello " + u.Login
+		if err := templateManager.Execute(ctx.Writer, gin.H{"User": u}, "home.tpl"); err != nil {
+			ctx.Error(err)
 		}
-		ctx.String(200, msg)
 	})
 	r.Run(":8765")
 }
