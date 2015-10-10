@@ -19,7 +19,7 @@ func main() {
 	r := gin.Default()
 
 	var err error
-	templateManager, err = temple.New(gin.IsDebugging(), myTemplates, "templates")
+	templateManager, err = temple.New(os.Getenv("TEMPLE_DEV") != "", myTemplates, "templates")
 	if err != nil {
 		log.Fatal(err)
 	}
