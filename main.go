@@ -36,6 +36,7 @@ func main() {
 	open := r.Group("/", auth.OpenHandler())
 	open.GET("/", func(ctx *gin.Context) {
 		u := ghauth.User(ctx)
+		ctx.Header("Content-Type", "text/html")
 		if err := templateManager.Execute(ctx.Writer, gin.H{"User": u}, "home.tpl"); err != nil {
 			ctx.Error(err)
 		}
