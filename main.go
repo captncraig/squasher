@@ -17,10 +17,14 @@ func main() {
 		CookieName:   "ghuser",
 		CookieSecret: os.Getenv("COOKIE_SECRET"),
 	}
-	ghauth.New(conf)
+	auth := ghauth.New(conf)
 
-	r.GET("/", func(c *gin.Context) {
-		c.String(200, "hello")
+	// register oauth routes
+	auth.RegisterRoutes("/login", "/callback", "/logout", r)
+
+	r.GET("/", func(ctx *gin.Context) {
+		u := ghauth.User(ctx)
+		ctx.String(200, "hello "+u.Login)
 	})
 	r.Run(":8765")
 }
