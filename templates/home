@@ -1,0 +1,11 @@
+{{template "header" .}}
+
+{{if .User}}
+
+Logged in
+{{else}}
+
+Not
+{{end}}
+
+{{template "footer" .}}

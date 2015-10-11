@@ -13,6 +13,7 @@ import (
 //go:generate govendor add +external
 //go:generate govendor update +ven
 //go:generate templeGen -pkg=main -var=myTemplates -o=templates.go -dir=templates
+//go:generate esc -o static.go -prefix static static
 
 var templateManager temple.TemplateStore
 
@@ -20,7 +21,8 @@ func main() {
 	r := gin.Default()
 
 	var err error
-	templateManager, err = temple.New(os.Getenv("TEMPLE_DEV") != "", myTemplates, "templates")
+	useDev := os.Getenv("TEMPLE_DEV") != ""
+	templateManager, err = temple.New(useDev, myTemplates, "templates")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -34,8 +36,8 @@ func main() {
 	}
 	auth := ghauth.New(conf)
 	auth.RegisterRoutes("/login", "/callback", "/logout", r)
-	r.Use(auth.AuthCheck())
-	r.Use(renderError)
+	r.Use(renderError, auth.AuthCheck())
+	r.StaticFS("/static", FS(useDev))
 	r.GET("/", home)
 
 	r.Run(":8765")
