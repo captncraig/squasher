@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"os"
 
@@ -34,7 +35,7 @@ func main() {
 	auth := ghauth.New(conf)
 	auth.RegisterRoutes("/login", "/callback", "/logout", r)
 	r.Use(auth.AuthCheck())
-
+	r.Use(renderError)
 	r.GET("/", home)
 
 	r.Run(":8765")
@@ -42,6 +43,15 @@ func main() {
 func render(c *gin.Context, name string, data interface{}) {
 	if err := templateManager.Execute(c.Writer, data, name); err != nil {
 		c.AbortWithError(500, err)
+	}
+}
+func renderError(c *gin.Context) {
+	c.Next()
+	errs := c.Errors.Errors()
+	fmt.Println(errs)
+	if len(errs) > 0 {
+		u := ghauth.User(c)
+		render(c, "error", gin.H{"User": u, "Errors": errs})
 	}
 }
 func home(ctx *gin.Context) {
