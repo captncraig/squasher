@@ -10,6 +10,7 @@ import (
 )
 
 //go:generate govendor add +external
+//go:generate govendor update +ven
 //go:generate templeGen -pkg=main -var=myTemplates -o=templates.go -dir=templates
 
 var templateManager temple.TemplateStore
