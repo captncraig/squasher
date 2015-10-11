@@ -33,14 +33,20 @@ func main() {
 	}
 	auth := ghauth.New(conf)
 	auth.RegisterRoutes("/login", "/callback", "/logout", r)
+	r.Use(auth.AuthCheck())
 
-	open := r.Group("/", auth.OpenHandler())
-	open.GET("/", func(ctx *gin.Context) {
-		u := ghauth.User(ctx)
-		ctx.Header("Content-Type", "text/html")
-		if err := templateManager.Execute(ctx.Writer, gin.H{"User": u}, "home.tpl"); err != nil {
-			ctx.Error(err)
-		}
-	})
+	r.GET("/", home)
+
 	r.Run(":8765")
+}
+func render(c *gin.Context, name string, data interface{}) {
+	if err := templateManager.Execute(c.Writer, data, name); err != nil {
+		c.AbortWithError(500, err)
+	}
+}
+func home(ctx *gin.Context) {
+	u := ghauth.User(ctx)
+	ctx.Header("Content-Type", "text/html")
+	data := gin.H{"User": u}
+	render(ctx, "home", data)
 }
