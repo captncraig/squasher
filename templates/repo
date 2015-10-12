@@ -1,0 +1,18 @@
+{{template "header" .}}
+
+<h3>Pull requests open for {{.Owner}}/{{.Repo}}</h3>
+
+{{if .Pulls}}
+<ul>
+{{range .Pulls}}
+<li>
+<a href="/repo/{{$.Owner}}/{{$.Repo}}/{{.Number}}">{{.Number}} - {{.Title}}.</a>
+</li>
+{{end}}
+</ul>
+{{else}}
+None! 
+{{end}}
+
+
+{{template "footer" .}}

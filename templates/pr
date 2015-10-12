@@ -1,0 +1,14 @@
+{{template "header" .}}
+
+<h3>Pull request {{.Number}} of {{.Owner}}/{{.Repo}}</h3>
+<h3>{{.Pull.Title}} (<a href="{{.Pull.HTMLURL}}">View on github</a>)</h3>
+
+{{if .Merged}}
+	<div class="alert alert-success">This pr already merged! Nothing to do but go code some more.</div>
+{{else if .Conflicts}}
+	<div class="alert alert-danger">This pr has conflicts that cannot be merged. Fix those and then come back.</div>
+{{else}}
+	Mergeable
+{{end}}
+
+{{template "footer" .}}
